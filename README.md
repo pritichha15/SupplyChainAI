@@ -2,6 +2,9 @@
 
 An AI-powered logistics risk prediction system that forecasts shipment delays using machine learning and visualizes risk through an interactive Streamlit dashboard.
 
+**LIVE DEMO**
+https://supplychainai-dargkpkbr3tkynwflkcnx5.streamlit.app/
+
 -> **Features**
 
 - Predict shipment delay probability using ML
