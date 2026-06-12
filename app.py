@@ -2,18 +2,14 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# --------------------------------------------------
-# PAGE CONFIG
-# --------------------------------------------------
+
 st.set_page_config(
     page_title="AI Supply Chain Digital Twin",
     page_icon="📊",
     layout="wide"
 )
 
-# --------------------------------------------------
-# CUSTOM CSS (YOUR LUXURY UI KEPT)
-# --------------------------------------------------
+
 st.markdown("""
 <style>
 
@@ -79,14 +75,10 @@ input, select {
 </style>
 """, unsafe_allow_html=True)
 
-# --------------------------------------------------
-# LOAD MODEL
-# --------------------------------------------------
+
 model = joblib.load("rf_delay_predictor.pkl")
 
-# --------------------------------------------------
-# EXPLAINABILITY
-# --------------------------------------------------
+
 def explain_prediction(traffic, demand_pressure, environmental_risk, inventory):
     reasons = []
 
@@ -106,17 +98,13 @@ def explain_prediction(traffic, demand_pressure, environmental_risk, inventory):
 
     return reasons
 
-# --------------------------------------------------
-# HEADER
-# --------------------------------------------------
+
 st.markdown("# AI Supply Chain Digital Twin")
 st.markdown("Real-Time Logistics Risk Monitoring Dashboard")
 
 st.divider()
 
-# --------------------------------------------------
-# INPUTS
-# --------------------------------------------------
+
 left, right = st.columns(2)
 
 with left:
@@ -129,9 +117,7 @@ with right:
     humidity = st.number_input("Humidity (%)", value=60.0)
     demand_forecast = st.number_input("Demand Forecast", min_value=0, value=1000)
 
-# --------------------------------------------------
-# PREDICTION
-# --------------------------------------------------
+
 if st.button("Analyze Logistics Risk"):
 
     traffic_map = {"Clear": 0, "Detour": 1, "Heavy": 2}
@@ -158,9 +144,7 @@ if st.button("Analyze Logistics Risk"):
 
     probability = model.predict_proba(input_data)[0][1]
 
-    # --------------------------------------------------
-    # RISK CLASSIFICATION
-    # --------------------------------------------------
+    
     if probability >= 0.75:
         risk_icon = "🔺"
         risk_label = "HIGH RISK"
@@ -174,9 +158,7 @@ if st.button("Analyze Logistics Risk"):
         risk_label = "LOW RISK"
         bar_color = "#22c55e"
 
-    # --------------------------------------------------
-    # KPI CARDS
-    # --------------------------------------------------
+    
     st.divider()
 
     c1, c2, c3 = st.columns(3)
@@ -201,9 +183,7 @@ if st.button("Analyze Logistics Risk"):
 
     st.divider()
 
-    # --------------------------------------------------
-    # COLORED PROGRESS BAR
-    # --------------------------------------------------
+   
     st.subheader("Risk Assessment")
 
     st.markdown(f"""
@@ -233,9 +213,7 @@ if st.button("Analyze Logistics Risk"):
 
     st.divider()
 
-    # --------------------------------------------------
-    # EXPLANATIONS
-    # --------------------------------------------------
+    
     st.subheader("Primary Risk Drivers")
 
     reasons = explain_prediction(
@@ -253,9 +231,7 @@ if st.button("Analyze Logistics Risk"):
 
     st.divider()
 
-    # --------------------------------------------------
-    # SUMMARY
-    # --------------------------------------------------
+   
     st.subheader("Digital Twin Summary")
 
     summary_html = f"""
